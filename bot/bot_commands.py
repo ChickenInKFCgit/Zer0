@@ -5,7 +5,7 @@ Définit toutes les commandes du bot via la fonction load_commands.
 # Import des librairies et modules
 import discord 
 from discord.ext import commands
-
+from discord import app_commands
 
 import bot_console_dialog
 
