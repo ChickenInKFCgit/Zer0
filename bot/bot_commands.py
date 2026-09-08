@@ -5,6 +5,7 @@ Définit toutes les commandes du bot via la fonction load_commands.
 # Import des librairies et modules
 import discord 
 from discord.ext import commands
+import commands as commandes
 from discord import app_commands
 
 import bot_console_dialog
@@ -51,7 +52,7 @@ def load_commands(bot:commands.bot.Bot):
         """  
         await interaction.response.send_message("Okay le goat, je redémarre pour toi <3", ephemeral=True)
 
-        await commands.restart(bot)
+        await commandes.restart(bot)
         
 
     @bot.tree.command(name="services_introuvables", description="Indique tous les services qui n'ont pas pu être lancés.")
@@ -59,21 +60,21 @@ def load_commands(bot:commands.bot.Bot):
         # laisse le temps au bot de réfléchir
         await interaction.response.defer(thinking=True) 
         
-        await interaction.followup.send( commands.services_introuvables(L_services_non_trouves) )
+        await interaction.followup.send( commandes.services_introuvables(L_services_non_trouves) )
 
     @bot.tree.command(name="services_obtain", description="Charge chacun des services introuvables depuis github.")
     async def services_obtain(interaction: discord.Interaction):
         # laisse le temps au bot de réfléchir
         await interaction.response.defer(thinking=True) 
 
-        await interaction.followup.send( commands.services_obtain(L_services_non_trouves) )
+        await interaction.followup.send( commandes.services_obtain(L_services_non_trouves) )
     
     @bot.tree.command(name="services_update", description="Met à jour chacun des services à la version disponible sur github.")
     async def services_update(interaction: discord.Interaction):
         # laisse le temps au bot de réfléchir
         await interaction.response.defer(thinking=True) 
 
-        await interaction.followup.send( commands.services_update(L_services, L_services_non_trouves))
+        await interaction.followup.send( commandes.services_update(L_services, L_services_non_trouves))
 
     @bot.tree.command(name="services_force", description="/service_obtain → /service_update → /restart")
     async def services_force(interaction: discord.Interaction):
@@ -105,7 +106,7 @@ def load_commands(bot:commands.bot.Bot):
         await interaction.followup.send(resultat)
 
         
-        await commands.envoyer_message_en_morceaux(resultat,interaction)
+        await commandes.envoyer_message_en_morceaux(resultat,interaction)
     
     
 
