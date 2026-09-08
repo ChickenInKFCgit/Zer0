@@ -24,7 +24,7 @@ def load_commands(bot:commands.bot.Bot):
         nb_commandes_syncro = len(await bot.tree.sync())
         bot_console_dialog.confirm(f"{nb_commandes_syncro} commandes ont été chargées avec succès.")
 
-    @tree.error
+    @bot.tree.error
     async def on_app_command_error(interaction: discord.Interaction, error: app_commands.AppCommandError):
         # Récupérer l'erreur d'origine si l'erreur est encapsulée
         if isinstance(error, app_commands.CommandInvokeError):
