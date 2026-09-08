@@ -9,6 +9,8 @@ from discord.ext import commands
 
 import bot_console_dialog
 
+
+
 def load_commands(bot:commands.bot.Bot):
     """
     Prend en paramètre un bot discord de discord.ext et lui définit les évènements et commandes rédigées pour Zer0 bot.
@@ -21,6 +23,24 @@ def load_commands(bot:commands.bot.Bot):
         """Lorsque le bot est prêt, syncronise les commandes commentées avec le bot."""
         nb_commandes_syncro = len(await bot.tree.sync())
         bot_console_dialog.confirm(f"{nb_commandes_syncro} commandes ont été chargées avec succès.")
+
+    @tree.error
+    async def on_app_command_error(interaction: discord.Interaction, error: app_commands.AppCommandError):
+        # Récupérer l'erreur d'origine si l'erreur est encapsulée
+        if isinstance(error, app_commands.CommandInvokeError):
+            error = error.original
+    
+        # Message d'erreur personnalisé à envoyer à l'utilisateur
+        message_erreur = f"⚠️ **Une erreur est survenue lors de l'exécution :**\n`{type(error).__name__}: {error}`"
+    
+        try:
+            # Si le bot a déjà commencé à répondre (defer), on utilise followup
+            if interaction.response.is_done():
+                await interaction.followup.send(message_erreur, ephemeral=True)
+            else:
+                await interaction.response.send_message(message_erreur, ephemeral=True)
+        except Exception as e:
+            print(f"Impossible d'envoyer le message d'erreur sur Discord : {e}")
         
 
     #___COMMANDES
