@@ -82,6 +82,13 @@ def load_commands(bot:commands.bot.Bot):
 
         await interaction.followup.send( "Obtention, actualisation des services et redémarrage.")
 
+    @bot.tree.command(name="services_trouvables", description="Indique tous les services qui ONT PU être lancés.")
+    async def services_force(interaction: discord.Interaction):
+        # laisse le temps au bot de réfléchir
+        await interaction.response.defer(thinking=True)
+
+        await interaction.followup.send(await commands.services_trouvables(L_services, L_services_non_trouves) )
+
     @bot.tree.command(name="annoying_text", description="Permet de randomiser les lettres du texte fourni.")
     async def annoying_text(interaction: discord.Interaction, texte_a_randomiser:str):
         # laisse le temps au bot de réfléchir

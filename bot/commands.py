@@ -69,6 +69,18 @@ async def services_update(L_services:list, L_services_non_trouves:list)->str:
             texte+=f"Impossible de pull, service {service} introuvable"
     return texte
 
+async def services_trouvables(L_services:list, L_services_non_trouves:list)->str:
+    if len(L_services) > 0:
+        texte="Actualisation des services :"
+    else:
+        texte="❌ Aucun service."
+    
+    deplacer_chemin_courant()
+    for service in L_services: 
+        if service not in L_services_non_trouves:
+            texte+= f"{service} est chargé 🥹"
+    return texte
+
 async def services_force(L_services:list, L_services_non_trouves:list):
     await services_obtain(L_services_non_trouves)
     await services_update(L_services,L_services_non_trouves)
