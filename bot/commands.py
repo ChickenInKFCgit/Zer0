@@ -78,7 +78,7 @@ async def services_trouvables(L_services:list, L_services_non_trouves:list)->str
     deplacer_chemin_courant()
     for service in L_services: 
         if service not in L_services_non_trouves:
-            texte+= f"\n\t- {service} est chargé 🥹"
+            texte+= f"\n- {service} est chargé 🥹"
     return texte
 
 async def services_force(L_services:list, L_services_non_trouves:list):
