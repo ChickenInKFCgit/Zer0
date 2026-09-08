@@ -59,7 +59,7 @@ def load_commands(bot:commands.bot.Bot):
         # laisse le temps au bot de réfléchir
         await interaction.response.defer(thinking=True) 
         
-        await interaction.followup.send( commands.services_introuvables() )
+        await interaction.followup.send( commands.services_introuvables(L_services_non_trouves) )
 
     @bot.tree.command(name="services_obtain", description="Charge chacun des services introuvables depuis github.")
     async def services_obtain(interaction: discord.Interaction):
